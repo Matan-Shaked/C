@@ -27,8 +27,7 @@
             printf(COLOR_RED "[FAIL]" COLOR_RESET " %s (line %d)\n", test_name, __LINE__); \
         } \
     } while (0)
-/********************************************************************* Enum's */
-/********************************************** Helper functions declerations */
+
 /************************************************************* Main functions */
 int main(void)
 {
@@ -100,8 +99,6 @@ int main(void)
     TEST_ASSERT(a4 == 0, "swapping size_t big and zero values - second check");
     TEST_ASSERT(*b1_ptr == 2, "swapping size_t pointers - first check");
     TEST_ASSERT(*b2_ptr == 1, "swapping size_t pointers - second check");
-    /* --- teardown / cleanup --- */
 
     return 0;
 }
-/*********************************** Helper functions definitions */
