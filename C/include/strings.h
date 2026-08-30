@@ -1,0 +1,61 @@
+#ifndef __STRINGS_H__
+#define __STRINGS_H__
+/********************************************************* Standard libraries */
+#include <stddef.h> /*size_t*/
+
+/********************************************************* POSIX's Extensions */
+
+/********************************************************* Third party libraries */
+
+/********************************************************* Private libraries / Headers */
+
+
+/****************************************************************** Constants */
+/******************************************************************* Typedefs */
+/***************************************************************** Status enum */
+
+/************************************************************** API functions */
+/*
+ * Description:     Function that calculates the length of the string pointed by
+ *                  'str', excluding the terminated null byte ('\0').
+ * Parameters:
+ *	str:    pointer to array of chars (string) that is terminated with 
+ *          terminated null byte ('\0'). If the array of chars is has no
+ *          terminated null byte ('\0'), the function will result undefined behavior.
+ *                             
+ * Return value:
+ *	    The number of bytes in the string pointed to by `str`, excluding the 
+ *      terminated null byte ('\0').
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+size_t StrLen(const char* str);
+
+/*
+ * Description:     Function that compares two strings (str1 and str2) to indicate
+ *                  which of the strings has a greater value, in the first char
+ *                  that is different (if there is any difference) between them. 
+ *                  Both string has to have a null-terminator byte. 
+ *                  If at least one of the strings doesn't have a null-terminator byte, 
+ *                  the function will result undefined behavior.
+ * 
+ * Parameters:
+ *	str1:   pointer to the first null-terminated string to compare.
+ *  str2:   pointer to the second null-terminated string to compare.
+ *                             
+ * Return value:
+ *	    0 - if the two strings are equal (identical).
+ *      positive value - in case that there is difference between the two strings
+ *                       and the first different char is greater in str1 than in str2.
+ *      negative value - in case that there is difference between the two strings
+ *                       and the first different char is greater in str2 than in str1.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+int StrCmp(const char* str1, const char* str2);
+
+#endif /**************************************************** End of __STRINGS_H__ */
