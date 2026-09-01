@@ -4,7 +4,7 @@
 * Last update: 30/08/26
 **************************/
 /********************************************************* Standard libraries */
-#include <string.h> /*strlen, strcmp, */
+#include <string.h> /*strlen, strcmp, strncmp*/
 #include <stdio.h> /*printf*/
 
 /********************************************************* Private libraries / Headers */
@@ -38,6 +38,7 @@ int main(void)
     char str8[] = "A";
     char str9[] = "matan";
     char str10[] = {'m', 'a', 't', 'a', 'n', '\0'};
+    char str11[] = "matann";
     size_t str1_len_a = strlen(str1);
     size_t str1_len_b = StrLen(str1);
     size_t str2_len_a = strlen(str2);
@@ -56,6 +57,16 @@ int main(void)
     int str_7_8_cmp_b = StrCmp(str7, str8);
     int str_9_10_cmp_a = strcmp(str9, str10);
     int str_9_10_cmp_b = StrCmp(str9, str10);
+    int str_5_6_n_cmp_a = strncmp(str5, str6, 1);
+    int str_5_6_n_cmp_b = StrNCmp(str5, str6, 1);
+    int str_6_7_n_cmp_a = strncmp(str6, str7, 1);
+    int str_6_7_n_cmp_b = StrNCmp(str6, str7, 1);
+    int str_7_8_n_cmp_a = strncmp(str7, str8, 1);
+    int str_7_8_n_cmp_b = StrNCmp(str7, str8, 1);
+    int str_9_10_n_cmp_a = strncmp(str9, str10, 5);
+    int str_9_10_n_cmp_b = StrNCmp(str9, str10, 5);
+    int str_10_11_n_cmp_a = strncmp(str10, str11, 6);
+    int str_10_11_n_cmp_b = StrNCmp(str10, str11, 6);
     char str1_cpy_dest_buffer[100] = "100001";
     char* str1_cpy_a = "Wonderfull day";
     char* str2_cpy_a = "12345";
@@ -75,12 +86,28 @@ int main(void)
     TEST_ASSERT(str4_len_a == str4_len_b, "testing on an empty string");
     TEST_ASSERT(str5_len_a == str5_len_b, "testing on a string that has only null-terminated char");
     printf("\n");
+
     printf("--- Tests on StrCmp ---\n");
-    TEST_ASSERT(str_5_6_cmp_a == str_5_6_cmp_b, "testing on an empty string");
-    TEST_ASSERT(str_6_7_cmp_a == str_6_7_cmp_b, "testing on empty string and non-empty string");
-    TEST_ASSERT(str_7_8_cmp_a == str_7_8_cmp_b, "testing on string with uppercase letter and with lowercase letter");
-    TEST_ASSERT(str_9_10_cmp_a == str_9_10_cmp_b, "testing on identical strings");
+    TEST_ASSERT(str_5_6_cmp_a == str_5_6_cmp_b, 
+        "testing on an empty string");
+    TEST_ASSERT(str_6_7_cmp_a == str_6_7_cmp_b, 
+        "testing on empty string and non-empty string");
+    TEST_ASSERT(str_7_8_cmp_a == str_7_8_cmp_b, 
+        "testing on string with uppercase letter and with lowercase letter");
+    TEST_ASSERT(str_9_10_cmp_a == str_9_10_cmp_b, 
+        "testing on identical strings");
     printf("\n");
+
+    printf("--- Tests on StrNCmp ---\n");
+    TEST_ASSERT(str_5_6_n_cmp_a == str_5_6_n_cmp_b, "testing on an empty string");
+    TEST_ASSERT(str_6_7_n_cmp_a == str_6_7_n_cmp_b, "testing on empty string and non-empty string");
+    TEST_ASSERT(str_7_8_n_cmp_a == str_7_8_n_cmp_b, "testing on string with uppercase letter and with lowercase letter");
+    TEST_ASSERT(str_9_10_n_cmp_a == str_9_10_n_cmp_b, 
+        "testing on identical strings up to 5 first chars, and different only in the sixth char");
+    TEST_ASSERT(str_10_11_n_cmp_a == str_10_11_n_cmp_b, 
+        "testing on identical strings up to 5 first chars, and different only in the sixth char");
+    printf("\n");
+
     printf("--- Tests on StrCpy ---\n");
     TEST_ASSERT(0 == StrCmp(str1_cpy_dest_buffer, "100001"), "testing the initial value of the destination buffer");
     TEST_ASSERT((0 == StrCmp(StrCpy(str1_cpy_dest_buffer, str1_cpy_a), str1_cpy_a)), 
@@ -92,6 +119,7 @@ int main(void)
     TEST_ASSERT((0 == StrCmp(StrCpy(str1_cpy_dest_buffer, str4_cpy_a), str4_cpy_a)), 
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
     printf("\n");
+
     printf("--- Tests on StrNCpy ---\n");
     TEST_ASSERT(0 == StrCmp(str1_n_cpy_long_dest_buffer, "100001"), "testing the initial value of the long destination buffer");
     TEST_ASSERT(0 == StrCmp(str1_n_cpy_short_dest_buffer, "100"), "testing the initial value of the short destination buffer");
@@ -113,7 +141,8 @@ int main(void)
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
     TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_short_dest_buffer, str3_n_cpy_a, strlen(str3_n_cpy_a) + 1), str3_n_cpy_a)), 
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
-    
+    printf("\n");
+
     /* --- teardown / cleanup --- */
 
     return 0;

@@ -40,6 +40,27 @@ int StrCmp(const char* str1, const char* str2)
     return *str1 - *str2;
 }
 
+int StrNCmp(const char* str1, const char* str2, size_t size)
+{
+    assert(NULL != str1);
+    assert(NULL != str2);
+
+    if (0 == size)
+    {
+        return 0;
+    }
+    
+    while (*str1 == *str2 && '\0' != *str1 && size > 0)
+    {
+        ++str1;
+        ++str2;
+        --size;
+    }
+
+    return *str1 - *str2;
+}
+
+
 char* StrCpy(char* dest, const char* src)
 {
     char* original_dest = dest;
