@@ -39,4 +39,22 @@ int StrCmp(const char* str1, const char* str2)
 
     return *str1 - *str2;
 }
+
+char* StrCpy(char* dest, const char* src)
+{
+    char* original_dest = dest;
+
+    assert(NULL != dest);
+    assert(NULL != src);
+
+    while ('\0' != *src)
+    {
+        *dest++ = *src++;
+    }
+
+    *dest = '\0';
+    
+    return original_dest;
+}
+
 /*********************************** Helper functions *************************/

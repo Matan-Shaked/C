@@ -58,4 +58,26 @@ size_t StrLen(const char* str);
  */
 int StrCmp(const char* str1, const char* str2);
 
+/*
+ * Description:     Function that copy a null-terminated string pointed to by `src`, 
+ *                  into a string at the buffer pointed by `dest`.
+ *                  If the `src` is pointing to array of chars without terminate
+ *                  null byte, the function will result in undefined behavior.
+ *                  The programmer is responsible for allocating a destination 
+ *                  buffer large enough, that is strlen(src) + 1. Otherwise, 
+ *                  the function will result in undefined behavior.
+ * 
+ * Parameters:
+ *	src:  pointer to the string to copy. null first null-terminated string to compare.
+ *  dest: pointer to the string buffer to copy to. 
+ *                             
+ * Return value:
+ *	    a pointer to dest.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+char* StrCpy(char* dest, const char* src);
+
 #endif /**************************************************** End of __STRINGS_H__ */
