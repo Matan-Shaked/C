@@ -68,7 +68,7 @@ int StrCmp(const char* str1, const char* str2);
  *                  the function will result in undefined behavior.
  * 
  * Parameters:
- *	src:  pointer to the string to copy. null first null-terminated string to compare.
+ *	src:  pointer to the string to copy. 
  *  dest: pointer to the string buffer to copy to. 
  *                             
  * Return value:
@@ -79,5 +79,28 @@ int StrCmp(const char* str1, const char* str2);
  *	Space:  O(1)
  */
 char* StrCpy(char* dest, const char* src);
+
+/*
+ * Description:     Function that copy a null-terminated string pointed to by `src`, 
+ *                  into a string at the buffer pointed by `dest`. It copy the first
+ *                  `size` bytes from `src` to `dest`.
+ *                  If `src` is shorter the `dest`, the function pad the 
+ *                  the `dest` with trailing null bytes.
+ *                  If the `dest` is smaller then the `src`, the resulting char
+ *                  sequence is truncated.
+ * 
+ * Parameters:
+ *	src:  pointer to the string to copy. 
+ *  dest: pointer to the string buffer to copy to. 
+ *  size: number of bytes to copy from src to dest.
+ *                             
+ * Return value:
+ *	    a pointer to dest.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+char* StrNCpy(char* dest, const char* src, size_t size);
 
 #endif /**************************************************** End of __STRINGS_H__ */

@@ -4,7 +4,7 @@
 * Last update: 30/08/26
 **************************/
 /********************************************************* Standard libraries */
-#include <string.h> /*strlen, strcmp, strcpy*/
+#include <string.h> /*strlen, strcmp, */
 #include <stdio.h> /*printf*/
 
 /********************************************************* Private libraries / Headers */
@@ -61,7 +61,12 @@ int main(void)
     char* str2_cpy_a = "12345";
     char str3_cpy_a[6] = "54321";
     char* str4_cpy_a = "";
-
+    char str1_n_cpy_long_dest_buffer[100] = "100001";
+    char str1_n_cpy_short_dest_buffer[4] = "100";
+    char* str1_n_cpy_a = "Wonderfull day";
+    char* str2_n_cpy_a = "12345";
+    char* str3_n_cpy_a = "";
+    
     /* --- tests --- */
     printf("--- Tests on StrLen ---\n");
     TEST_ASSERT(str1_len_a == str1_len_b, "testing on a pointer to string literal");
@@ -85,6 +90,28 @@ int main(void)
     TEST_ASSERT((0 == StrCmp(StrCpy(str1_cpy_dest_buffer, str3_cpy_a), str3_cpy_a)), 
                 "testing the copy of short local string of numbers to the destination buffer");
     TEST_ASSERT((0 == StrCmp(StrCpy(str1_cpy_dest_buffer, str4_cpy_a), str4_cpy_a)), 
+                "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
+    printf("\n");
+    printf("--- Tests on StrNCpy ---\n");
+    TEST_ASSERT(0 == StrCmp(str1_n_cpy_long_dest_buffer, "100001"), "testing the initial value of the long destination buffer");
+    TEST_ASSERT(0 == StrCmp(str1_n_cpy_short_dest_buffer, "100"), "testing the initial value of the short destination buffer");
+    TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_long_dest_buffer, str1_n_cpy_a, strlen(str1_n_cpy_a) + 1), str1_n_cpy_a)), 
+                "testing the copy a source of string literal to the a bigger destination buffer");
+    StrNCpy(str1_n_cpy_short_dest_buffer, str1_n_cpy_a, sizeof(str1_n_cpy_short_dest_buffer));
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[0] == 'W', "testing the copy of source to smaller destination - first char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[1] == 'o', "testing the copy of source to smaller destination - second char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[2] == 'n', "testing the copy of source to smaller destination - third char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[3] == 'd', "testing the copy of source to smaller destination - fourth char");
+    TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_long_dest_buffer, str2_n_cpy_a, strlen(str2_n_cpy_a) + 1), str2_n_cpy_a)), 
+                "testing the copy a source of string literal of numbers to the a bigger destination buffer");
+    StrNCpy(str1_n_cpy_short_dest_buffer, str2_n_cpy_a, sizeof(str1_n_cpy_short_dest_buffer));
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[0] == '1', "testing the copy of source to smaller destination - first char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[1] == '2', "testing the copy of source to smaller destination - second char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[2] == '3', "testing the copy of source to smaller destination - third char");
+    TEST_ASSERT(str1_n_cpy_short_dest_buffer[3] == '4', "testing the copy of source to smaller destination - fourth char");
+    TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_long_dest_buffer, str3_n_cpy_a, strlen(str3_n_cpy_a) + 1), str3_n_cpy_a)), 
+                "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
+    TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_short_dest_buffer, str3_n_cpy_a, strlen(str3_n_cpy_a) + 1), str3_n_cpy_a)), 
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
     
     /* --- teardown / cleanup --- */

@@ -53,8 +53,26 @@ char* StrCpy(char* dest, const char* src)
     }
 
     *dest = '\0';
-    
+
     return original_dest;
 }
+
+char* StrNCpy(char* dest, const char* src, size_t size)
+{
+    char* original_dest = dest;
+    size_t i = 0;
+
+    assert(NULL != dest);
+    assert(NULL != src);
+
+    for (i = 0; i < size; ++i)
+    {
+        *dest++ = *src++;
+    }
+
+    return original_dest;
+}
+
+
 
 /*********************************** Helper functions *************************/
