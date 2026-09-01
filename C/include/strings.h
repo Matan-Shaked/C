@@ -111,7 +111,6 @@ int StrNCmp(const char* str1, const char* str2, size_t size);
  */
 int StrCaseCmp(const char* str1, const char* str2);
 
-
 /*
  * Description:     Function that copy a null-terminated string pointed to by `src`, 
  *                  into a string at the buffer pointed by `dest`.
@@ -156,6 +155,47 @@ char* StrCpy(char* dest, const char* src);
  *	Space:  O(1)
  */
 char* StrNCpy(char* dest, const char* src, size_t size);
+
+/*
+ * Description:     Function that returns a pointer to the first occurrence of 
+ *                  the character 'c' in the null-terminated string that 
+ *                  pointed by 'str'.
+ *                  If the `str` is pointing to array of chars without terminate
+ *                  null byte, the function will result in undefined behavior.
+ * 
+ * Parameters:
+ *	str:  pointer to the null-terminated string string to search in for 'c'. 
+ *  c:    The character to search for inside the string that pointed by `str`.
+ *                             
+ * Return value:
+ *	    If character was found - a pointer to the matched character.
+ *      Otherwise - NULL.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+char* StrChr(const char* str, int c);
+
+/*
+ * Description:     Function that returns a pointer to a new null-terminated string
+ *                  that is dupicate of the string that is pointed by 'str'.
+ *                  The new string is allocated dynamically and the user 
+ *                  is responsible to free its memory after finish using it with
+ *                  free() (from stdlib.h). 
+ * 
+ * Parameters:
+ *	str:  pointer to the null-terminated string that is duplicated. 
+ *                             
+ * Return value:
+ *	    On success - a pointer to the new duplicate string.
+ *      Otherwise - NULL.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+char* StrDup(const char* str);
 
 
 #endif /**************************************************** End of __STRINGS_H__ */

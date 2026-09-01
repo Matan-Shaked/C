@@ -3,13 +3,17 @@
 * Author: Matan Shaked
 * Last update: 30/08/26
 **************************/
+/************************************************************* POSIX Define's */
+#define _POSIX_C_SOURCE (200809L)
+
 /********************************************************* Standard libraries */
-#include <string.h> /*strlen, strcmp, strncmp*/
+#include <string.h> /*strlen, strcmp, strncmp, strchr, strdup*/
 #include <strings.h> /*strcasecmp*/
-#include <stdio.h> /*printf*/
+#include <stdio.h> /*printf, NULL*/
+#include <stdlib.h> /*free*/
 
 /********************************************************* Private libraries / Headers */
-#include "strings.h"
+#include "strings.h" /*header*/
 /******************************************************************* Define's */
 #define COLOR_GREEN  "\033[0;32m"
 #define COLOR_RED    "\033[0;31m"
@@ -46,6 +50,15 @@ int main(void)
     char str15[] = "a1a2b3b4";
     char str16[] = "MATAN";
     char str17[] = "a1a2b3b4";
+    const char str18[] = "please make a duplicate from me";
+    char* str18_dup_a = NULL;
+    char* str18_dup_b = NULL;
+    const char str19[] = "100000000000000000001";
+    char* str19_dup_a = NULL;
+    char* str19_dup_b = NULL;
+    const char str20[] = "";
+    char* str20_dup_a = NULL;
+    char* str20_dup_b = NULL;
     size_t str1_len_a = strlen(str1);
     size_t str1_len_b = StrLen(str1);
     size_t str2_len_a = strlen(str2);
@@ -160,6 +173,37 @@ int main(void)
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
     TEST_ASSERT((0 == StrCmp(StrNCpy(str1_n_cpy_short_dest_buffer, str3_n_cpy_a, strlen(str3_n_cpy_a) + 1), str3_n_cpy_a)), 
                 "testing the copy of an empty string literal (only null terminate char) to the destination buffer");
+    printf("\n");
+
+    printf("--- Tests on StrChr ---\n");
+    TEST_ASSERT(0 == StrCmp(StrChr(str17, 'a'), strchr(str17, 'a')), 
+                "testing on character that occurs more than once in the string");
+    TEST_ASSERT(0 == StrCmp(StrChr(str17, '2'), strchr(str17, '2')), 
+                "testing on character that occurs only once in the string");
+    TEST_ASSERT(StrChr(str17, '5') == strchr(str17, '5') && NULL == StrChr(str17, '5'), 
+                "testing on character that not occurs in the string");
+    printf("\n");
+
+    printf("--- Tests on StrDup ---\n");
+    str18_dup_a = StrDup(str18);
+    str18_dup_b = strdup(str18);
+    str19_dup_a = StrDup(str19);
+    str19_dup_b = strdup(str19);
+    str20_dup_a = StrDup(str20);
+    str20_dup_b = strdup(str20);
+    TEST_ASSERT(0 == StrCmp(str18, str18_dup_a), 
+                "testing duplication of string made of letters and spaces only");
+    TEST_ASSERT(0 == StrCmp(str18_dup_a, str18_dup_b), 
+                "testing duplication of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(str19, str19_dup_a), 
+                "testing duplication of string made of digits only");
+    TEST_ASSERT(0 == StrCmp(str19_dup_a, str19_dup_b), 
+                "testing duplication of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(str20, str20_dup_a), 
+                "testing duplication of an empty string");
+    TEST_ASSERT(0 == StrCmp(str20_dup_a, str20_dup_b), 
+                "testing duplication of my implementation vs. glibc's");
+
     printf("\n");
 
     /* --- teardown / cleanup --- */

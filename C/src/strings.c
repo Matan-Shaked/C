@@ -6,8 +6,13 @@
 /********************************************************* Standard libraries */
 #include <assert.h> /*assert*/
 #include <ctype.h> /*tolower*/
+#include <stdlib.h> /*malloc*/
 /******************************************************************* Header's */
-#include "strings.h"
+#include "strings.h" /*header*/
+
+/******************************************************************* Define's */
+#define BUFFER_SIZE (50)
+
 /********************************************************************* Structs*/
 /********************************************************************* Enum's */
 /****************************************************************** Typedef's */
@@ -108,6 +113,39 @@ char* StrNCpy(char* dest, const char* src, size_t size)
     return original_dest;
 }
 
+char* StrChr(const char* str, int c)
+{
+    assert(NULL != str);
 
+    while('\0' != *str && c != *str)
+    {
+        ++str;
+    }
+
+    return (*str == c) ? (char*)str : NULL;
+}
+
+char* StrDup(const char* str)
+{
+    char* str_dup = NULL;
+    char* str_dup_runner = NULL; 
+    assert(NULL != str);
+    
+    str_dup = (char*)malloc(BUFFER_SIZE);
+    str_dup_runner = str_dup;
+    if (NULL == str_dup)
+    {
+        return NULL;
+    }
+
+    while ('\0' != *str)
+    {
+        *str_dup_runner++ = *str++;
+    }
+
+    *str_dup_runner = '\0';
+
+    return str_dup;
+}
 
 /*********************************** Helper functions *************************/
