@@ -86,6 +86,33 @@ int StrCmp(const char* str1, const char* str2);
 int StrNCmp(const char* str1, const char* str2, size_t size);
 
 /*
+ * Description:     Function that compares two strings (str1 and str2) to indicate
+ *                  which of the strings has a greater value, in the first char
+ *                  that is different (if there is any difference) between them. 
+ *                  The function ignores the case of the characters in the strings.
+ *                  Both string has to have a null-terminator byte. 
+ *                  If at least one of the strings doesn't have a null-terminator byte, 
+ *                  the function will result undefined behavior.
+ * 
+ * Parameters:
+ *	str1:   pointer to the first null-terminated string to compare.
+ *  str2:   pointer to the second null-terminated string to compare.
+ *                             
+ * Return value:
+ *	    0 - if the two strings are equal (identical).
+ *      positive value - in case that there is difference between the two strings
+ *                       and the first different char is greater in str1 than in str2.
+ *      negative value - in case that there is difference between the two strings
+ *                       and the first different char is greater in str2 than in str1.
+ *
+ * Complexity:  
+ *	Time:   O(n)
+ *	Space:  O(1)
+ */
+int StrCaseCmp(const char* str1, const char* str2);
+
+
+/*
  * Description:     Function that copy a null-terminated string pointed to by `src`, 
  *                  into a string at the buffer pointed by `dest`.
  *                  If the `src` is pointing to array of chars without terminate
@@ -129,5 +156,6 @@ char* StrCpy(char* dest, const char* src);
  *	Space:  O(1)
  */
 char* StrNCpy(char* dest, const char* src, size_t size);
+
 
 #endif /**************************************************** End of __STRINGS_H__ */

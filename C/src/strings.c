@@ -5,6 +5,7 @@
 **************************/
 /********************************************************* Standard libraries */
 #include <assert.h> /*assert*/
+#include <ctype.h> /*tolower*/
 /******************************************************************* Header's */
 #include "strings.h"
 /********************************************************************* Structs*/
@@ -60,6 +61,19 @@ int StrNCmp(const char* str1, const char* str2, size_t size)
     return *str1 - *str2;
 }
 
+int StrCaseCmp(const char* str1, const char* str2)
+{
+    assert(NULL != str1);
+    assert(NULL != str2);
+
+    while (tolower(*str1) == tolower(*str2) && '\0' != *str1)
+    {
+        ++str1;
+        ++str2;
+    }
+
+    return tolower(*str1) - tolower(*str2);
+}
 
 char* StrCpy(char* dest, const char* src)
 {

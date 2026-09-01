@@ -5,6 +5,7 @@
 **************************/
 /********************************************************* Standard libraries */
 #include <string.h> /*strlen, strcmp, strncmp*/
+#include <strings.h> /*strcasecmp*/
 #include <stdio.h> /*printf*/
 
 /********************************************************* Private libraries / Headers */
@@ -39,6 +40,12 @@ int main(void)
     char str9[] = "matan";
     char str10[] = {'m', 'a', 't', 'a', 'n', '\0'};
     char str11[] = "matann";
+    char str12[] = "MATAN";
+    char str13[] = "MaTan";
+    char str14[] = "A1a2B3b4";
+    char str15[] = "a1a2b3b4";
+    char str16[] = "MATAN";
+    char str17[] = "a1a2b3b4";
     size_t str1_len_a = strlen(str1);
     size_t str1_len_b = StrLen(str1);
     size_t str2_len_a = strlen(str2);
@@ -67,6 +74,12 @@ int main(void)
     int str_9_10_n_cmp_b = StrNCmp(str9, str10, 5);
     int str_10_11_n_cmp_a = strncmp(str10, str11, 6);
     int str_10_11_n_cmp_b = StrNCmp(str10, str11, 6);
+    int str_12_13_cmp_a = strcasecmp(str12, str13);
+    int str_12_13_cmp_b = StrCaseCmp(str12, str13);
+    int str_14_15_cmp_a = strcasecmp(str14, str15);
+    int str_14_15_cmp_b = StrCaseCmp(str14, str15);
+    int str_16_17_cmp_a = strcasecmp(str16, str17);
+    int str_16_17_cmp_b = StrCaseCmp(str16, str17);
     char str1_cpy_dest_buffer[100] = "100001";
     char* str1_cpy_a = "Wonderfull day";
     char* str2_cpy_a = "12345";
@@ -77,7 +90,7 @@ int main(void)
     char* str1_n_cpy_a = "Wonderfull day";
     char* str2_n_cpy_a = "12345";
     char* str3_n_cpy_a = "";
-    
+
     /* --- tests --- */
     printf("--- Tests on StrLen ---\n");
     TEST_ASSERT(str1_len_a == str1_len_b, "testing on a pointer to string literal");
@@ -106,6 +119,12 @@ int main(void)
         "testing on identical strings up to 5 first chars, and different only in the sixth char");
     TEST_ASSERT(str_10_11_n_cmp_a == str_10_11_n_cmp_b, 
         "testing on identical strings up to 5 first chars, and different only in the sixth char");
+    printf("\n");
+
+    printf("--- Tests on StrCaseCmp ---\n");
+    TEST_ASSERT(str_12_13_cmp_a == str_12_13_cmp_b, "testing on identical strings that differs only by case");
+    TEST_ASSERT(str_14_15_cmp_a == str_14_15_cmp_b, "testing on identical strings that differs only by case");
+    TEST_ASSERT(str_16_17_cmp_a == str_16_17_cmp_b, "testing on different strings");
     printf("\n");
 
     printf("--- Tests on StrCpy ---\n");
