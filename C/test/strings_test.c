@@ -7,7 +7,8 @@
 #define _POSIX_C_SOURCE (200809L)
 
 /********************************************************* Standard libraries */
-#include <string.h> /*strlen, strcmp, strncmp, strchr, strdup*/
+#include <string.h> /*strlen, strcmp, strncmp, strchr, strdup, strcat, strncat, 
+                        strstr, strspn, strtok*/
 #include <strings.h> /*strcasecmp*/
 #include <stdio.h> /*printf, NULL*/
 #include <stdlib.h> /*free*/
@@ -59,6 +60,49 @@ int main(void)
     const char str20[] = "";
     char* str20_dup_a = NULL;
     char* str20_dup_b = NULL;
+    char* str21_cat_src_a = " The king";
+    char str21_cat_dest_a[100] = "Long live";
+    char* str21_cat_src_b = " The king";
+    char str21_cat_dest_b[100] = "Long live";
+    char* str22_cat_src_a = "Day";
+    char str22_cat_dest_a[100] = "What a beautiful ";
+    char* str22_cat_src_b = "Day";
+    char str22_cat_dest_b[100] = "What a beautiful ";
+    char* str21_cat_n_src_a = " The king";
+    char str21_cat_n_dest_a[100] = "Long live";
+    char* str21_cat_n_src_b = " The king";
+    char str21_cat_n_dest_b[100] = "Long live";
+    char* str22_cat_n_src_a = "Day";
+    char str22_cat_n_dest_a[100] = "What a beautiful ";
+    char* str22_cat_n_src_b = "Day";
+    char str22_cat_n_dest_b[100] = "What a beautiful ";
+    char* str23_cat_n_src_a = "Day";
+    char str23_cat_n_dest_a[100] = "What a rainy ";
+    char* str23_cat_n_src_b = "Day";
+    char str23_cat_n_dest_b[100] = "What a rainy ";
+    char* str24_strstr_haystack_a = "matan has arrived";
+    char* str24_strstr_needle_a = "";
+    char* str24_strstr_needle_b = "p";
+    char* str24_strstr_needle_c = "has";
+    char* str24_strstr_needle_d = "hhas";
+    char* str24_strstr_needle_e = "matan has arrivedddddd";
+    char str25_spn[] = "matan is in the house";
+    char str26_spn[] = "messi is in the house";
+    char str27_spn[] = "marradona is in the house";
+    char str28_spn[] = "";
+    char str_spn_accept[] = "matsrd";
+    char str_spn_accept_empty[] = "";
+    char str_token[] = "Matan para Messi para matan and ke Gollllassssso!";
+    size_t str25_spn_a = strspn(str25_spn, str_spn_accept);
+    size_t str25_spn_b = StrSpn(str25_spn, str_spn_accept);
+    size_t str26_spn_a = strspn(str26_spn, str_spn_accept);
+    size_t str26_spn_b = StrSpn(str26_spn, str_spn_accept);
+    size_t str27_spn_a = strspn(str27_spn, str_spn_accept);
+    size_t str27_spn_b = StrSpn(str27_spn, str_spn_accept);  
+    size_t str25_spn_a_e = strspn(str25_spn, str_spn_accept_empty);
+    size_t str25_spn_b_e = StrSpn(str25_spn, str_spn_accept_empty);
+    size_t str28_spn_a_e = strspn(str28_spn, str_spn_accept);  
+    size_t str28_spn_b_e = StrSpn(str28_spn, str_spn_accept);  
     size_t str1_len_a = strlen(str1);
     size_t str1_len_b = StrLen(str1);
     size_t str2_len_a = strlen(str2);
@@ -206,7 +250,110 @@ int main(void)
 
     printf("\n");
 
-    /* --- teardown / cleanup --- */
+    printf("--- Tests on StrCat ---\n");
+    TEST_ASSERT(0 == StrCmp(StrCat(str21_cat_dest_a, str21_cat_src_a), "Long live The king"),
+                "testing concatenating of two strings to have \"Long live The king\"");
+    TEST_ASSERT(0 == StrCmp(str21_cat_dest_a, strcat(str21_cat_dest_b, str21_cat_src_b)),
+                "testing concatenating of two strings of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(StrCat(str22_cat_dest_a, str22_cat_src_a), "What a beautiful Day"),
+                "testing concatenating of two strings to have \"What a beautiful Day\"");
+    TEST_ASSERT(0 == StrCmp(str22_cat_dest_a, strcat(str22_cat_dest_b, str22_cat_src_b)),
+                "testing concatenating of two strings of my implementation vs. glibc's");
+    printf("\n");
+
+    printf("--- Tests on StrNCat ---\n");
+    TEST_ASSERT(0 == StrCmp(StrNCat(str21_cat_n_dest_a, str21_cat_n_src_a, 4), "Long live The"),
+                "concatenating only part of src into dest to have \"Long live The\"");
+    TEST_ASSERT(0 == StrCmp(str21_cat_n_dest_a, strncat(str21_cat_n_dest_b, str21_cat_n_src_b, 4)),
+                "testing concatenating of two strings of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(StrNCat(str22_cat_n_dest_a, str22_cat_n_src_a, 10), "What a beautiful Day"),
+                "concatenating with size that is bigger of src into dest to have \"What a beautiful Day\"");
+    TEST_ASSERT(0 == StrCmp(str22_cat_n_dest_a, strncat(str22_cat_n_dest_b, str22_cat_n_src_b, 10)),
+                "testing concatenating of two strings of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(StrNCat(str23_cat_n_dest_a, str23_cat_n_src_a, 0), "What a rainy "),
+                "concatenating with size of 0 to have \"What a rainy \"");
+    TEST_ASSERT(0 == StrCmp(str23_cat_n_dest_a, strncat(str23_cat_n_dest_b, str23_cat_n_src_b, 0)),
+                "testing concatenating of two strings of my implementation vs. glibc's");
+    printf("\n");
+
+    printf("--- Tests on StrStr ---\n");
+    TEST_ASSERT(
+        0 == StrCmp(StrStr(str24_strstr_haystack_a, str24_strstr_needle_a), 
+                    "matan has arrived"),
+        "testing StrStr with an empty needle to return the full haystack: \"matan has arrived\""
+    );
+    TEST_ASSERT(
+        NULL == StrStr(str24_strstr_haystack_a, str24_strstr_needle_b), 
+        "testing StrStr with a needle that is not found in the haystack to return NULL"
+    );
+    TEST_ASSERT(
+        0 == StrCmp(StrStr(str24_strstr_haystack_a, str24_strstr_needle_c), 
+                    "has arrived"),
+        "testing StrStr with a needle that is found in the haystack to return: \"has arrived\""
+    );
+    TEST_ASSERT(
+        NULL == StrStr(str24_strstr_haystack_a, str24_strstr_needle_d),
+        "testing StrStr with a misleading needle with two same opening chars "
+        "(\"hhas\"), considered as not a fitting needle that resulting NULL"
+    );
+    TEST_ASSERT(
+        StrStr(str24_strstr_haystack_a, str24_strstr_needle_e) == NULL, 
+        "testing StrStr with a needle that is not found in the "
+        "and that is longer than the haystack (\"matan has arrivedddddd\") to "
+        "return NULL"
+    );
+     TEST_ASSERT(0 == StrCmp(
+                        StrStr(str24_strstr_haystack_a, str24_strstr_needle_a),
+                        strstr(str24_strstr_haystack_a, str24_strstr_needle_a)
+                    ),
+    "testing finding needle in haystack (strstr)of my implementation vs. glibc's");
+    TEST_ASSERT(StrStr(str24_strstr_haystack_a, str24_strstr_needle_b) 
+                ==  strstr(str24_strstr_haystack_a, str24_strstr_needle_b),
+    "testing finding needle in haystack (strstr)of my implementation vs. glibc's");
+    TEST_ASSERT(0 == StrCmp(
+                        StrStr(str24_strstr_haystack_a, str24_strstr_needle_c),
+                        strstr(str24_strstr_haystack_a, str24_strstr_needle_c)
+                    ),
+    "testing finding needle in haystack (strstr)of my implementation vs. glibc's");
+    TEST_ASSERT(StrStr(str24_strstr_haystack_a, str24_strstr_needle_d) 
+                ==  strstr(str24_strstr_haystack_a, str24_strstr_needle_d),
+    "testing finding needle in haystack (strstr)of my implementation vs. glibc's");
+    printf("\n");
+
+    printf("--- Tests on StrSpn ---\n");
+    printf("Accept is: matsrd\n"
+            "Three strings:\n"
+            "matan is in the house - expected result is 4, got: %lu\n"
+            "messi is in the house - expected result is 1, got: %lu\n"
+            "marradona is in the house - expected result is 6, got: %lu\n",
+             str25_spn_b, str26_spn_b, str27_spn_b
+        );
+    TEST_ASSERT(str25_spn_a == str25_spn_b, "testing my implementation vs. glibc's");
+    TEST_ASSERT(str26_spn_a == str26_spn_b, "testing my implementation vs. glibc's");
+    TEST_ASSERT(str27_spn_a == str27_spn_b, "testing my implementation vs. glibc's");
+    TEST_ASSERT(str25_spn_a_e == str25_spn_b_e, "testing empty accept - my implementation vs. glibc's");
+    TEST_ASSERT(str28_spn_a_e == str28_spn_b_e, "testing empty string - my implementation vs. glibc's");
+    printf("\n");
+
+    printf("--- Tests on StrTok ---\n");
+    {
+        char* token = StrTok(str_token, " ");
+
+        while (NULL != token)
+        {
+            printf("%s\n", token);
+            token = StrTok(NULL, " ");
+        }
+    }
+    printf("\n");
+ 
+    /* --- cleanup --- */
+    free(str18_dup_a);
+    free(str18_dup_b);
+    free(str19_dup_a);
+    free(str19_dup_b);
+    free(str20_dup_a);
+    free(str20_dup_b);
 
     return 0;
 }
