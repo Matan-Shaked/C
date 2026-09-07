@@ -15,6 +15,7 @@
 
 /********************************************************* Private libraries / Headers */
 #include "strings.h" /*header*/
+
 /******************************************************************* Define's */
 #define COLOR_GREEN  "\033[0;32m"
 #define COLOR_RED    "\033[0;31m"
@@ -28,8 +29,7 @@
             printf(COLOR_RED "[FAIL]" COLOR_RESET " %s (line %d)\n", test_name, __LINE__); \
         } \
     } while (0)
-/********************************************************************* Enum's */
-/********************************************** Helper functions declerations */
+
 /************************************************************* Main functions */
 int main(void)
 {
@@ -357,4 +357,3 @@ int main(void)
 
     return 0;
 }
-/*********************************** Helper functions definitions */
